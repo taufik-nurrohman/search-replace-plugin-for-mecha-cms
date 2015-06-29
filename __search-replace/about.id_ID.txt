@@ -1,0 +1,10 @@
+Title: Cari dan Ganti
+Author: Taufik Nurrohman
+URL: http://latitudu.com
+Version: 1.0.0
+
+====
+
+> Cari teks dan ganti dengan teks yang lain.
+
+Menambahkan fungsi “cari dan ganti” pada editor posting Anda.

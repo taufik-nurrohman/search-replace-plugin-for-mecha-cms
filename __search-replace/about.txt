@@ -1,0 +1,10 @@
+Title: Search and Replace
+Author: Taufik Nurrohman
+URL: http://latitudu.com
+Version: 1.0.0
+
+====
+
+> Search text and replace with another text.
+
+Add “search and replace” functionality in your post editor.

@@ -1,0 +1,5 @@
+plugin_search_replace:
+  0: Search and Replace
+  1: Find what?
+  2: Replace with?
+  3: Replace in selection?

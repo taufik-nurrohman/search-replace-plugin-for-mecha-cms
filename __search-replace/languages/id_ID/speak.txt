@@ -1,0 +1,5 @@
+plugin_search_replace:
+  0: Cari dan Ganti
+  1: Cari apa?
+  2: Ganti dengan?
+  3: Ganti di dalam seleksi?
