@@ -11,5 +11,5 @@ Config::merge('DASHBOARD.languages', array(
 ));
 
 Weapon::add('SHIPMENT_REGION_BOTTOM', function() {
-    echo Asset::javascript('cabinet/plugins/' . basename(__DIR__) . '/sword/search-replace.js');
+    echo Asset::javascript('cabinet/plugins/' . basename(__DIR__) . '/sword/button.js');
 }, 20);
