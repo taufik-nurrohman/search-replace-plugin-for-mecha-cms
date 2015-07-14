@@ -1,17 +1,20 @@
 (function(w, d, base) {
     if (typeof base.composer === "undefined") return;
     var editor = base.composer,
-        speak = base.languages;
-    editor.button('search plugin-search-replace', {
-        title: speak.plugin_search_replace_title_search_replace,
+        grip = editor.grip,
+        mte = base.languages.MTE,
+        speak = base.languages.plugin_search_replace,
+        name = 'search plugin-search-replace';
+    editor.button(name, {
+        title: speak[0],
         click: function() {
             editor.modal('search-replace', function(overlay, modal) {
-                var s = editor.grip.selection(),
+                var s = grip.selection(),
                     ok = d.createElement('button'),
                     cancel = d.createElement('button');
                 function process() {
-                    var area = editor.grip.area,
-                        escape = editor.grip.escape,
+                    var area = grip.area,
+                        escape = grip.escape,
                         input = modal.children[1].getElementsByTagName('input'),
                         pattern = input[0].value,
                         flag = 'g',
@@ -25,33 +28,35 @@
                     if (input[0].value === "") {
                         return editor.close(true), false;
                     }
+                    var match = new RegExp(pattern, flag);
                     if (!input[2].checked) {
-                        var str = (new RegExp(pattern)).exec(area.value);
-                        area.value = area.value.replace(new RegExp(pattern, flag), input[1].value);
-                        str = str !== null && str[0] ? str[0].replace(new RegExp(pattern), input[1].value) : "";
-                        editor.grip.select(area.value.indexOf(str), area.value.indexOf(str) + str.length);
+                        var str = match.exec(area.value), index;
+                        area.value = area.value.replace(match, input[1].value);
+                        str = str !== null && str[0] ? str[0].replace(match, input[1].value) : "";
+                        index = area.value.indexOf(str);
+                        grip.select(index, index + str.length);
                         editor.close(true);
-                        editor.grip.updateHistory();
+                        grip.updateHistory();
                     } else {
-                        editor.grip.replace(new RegExp(pattern, flag), input[1].value);
+                        grip.replace(match, input[1].value);
                     }
                     editor.close(true);
                     return false;
                 }
-                ok.innerHTML = speak.MTE.buttons.ok;
-                cancel.innerHTML = speak.MTE.buttons.cancel;
-                modal.children[0].innerHTML = speak.plugin_search_replace_title_search_replace;
+                ok.innerHTML = mte.buttons.ok;
+                cancel.innerHTML = mte.buttons.cancel;
+                modal.children[0].innerHTML = speak[0];
                 var search = d.createElement('input'),
                     replace = d.createElement('input'),
                     option = d.createElement('label');
                 search.type = 'text';
                 replace.type = 'text';
-                search.title = speak.plugin_search_replace_description_find;
-                replace.title = speak.plugin_search_replace_description_replace;
+                search.title = speak[1];
+                replace.title = speak[2];
                 search.placeholder = search.title;
                 replace.placeholder = replace.title;
                 option.className = 'input';
-                option.innerHTML = '<input type="checkbox"' + (s.value.length > 0 ? ' checked' : "") + '> ' + speak.plugin_search_replace_description_selection;
+                option.innerHTML = '<input type="checkbox"' + (s.value.length > 0 ? ' checked' : "") + '> ' + speak[3];
                 editor.event("keydown", search, function(e) {
                     var _this = this;
                     if (e.keyCode === 13) {
@@ -99,10 +104,7 @@
             });
         }
     });
-    // MTE & HTE >= 1.4.0
-    if (typeof editor.shortcut === "function") {
-        editor.shortcut('CTRL+70', function() {
-            return base.composer.grip.config.buttons['search plugin-search-replace'].click(), false;
-        });
-    }
+    editor.shortcut('CTRL+70', function() {
+        return base.composer.grip.config.buttons[name].click(), false;
+    });
 })(window, document, DASHBOARD);
