@@ -1,5 +1,5 @@
 (function(w, d, base) {
-    if (typeof base.composer === "undefined") return;
+    if (!base.composer) return;
     var editor = base.composer,
         grip = editor.grip,
         mte = base.languages.MTE,
@@ -8,7 +8,7 @@
     editor.button(name, {
         title: speak[0],
         click: function() {
-            editor.modal('search-replace', function(overlay, modal) {
+            editor.modal('search-replace', function(overlay, modal, header, content, footer) {
                 var s = grip.selection(),
                     ok = d.createElement('button'),
                     cancel = d.createElement('button');
@@ -45,7 +45,6 @@
                 }
                 ok.innerHTML = mte.buttons.ok;
                 cancel.innerHTML = mte.buttons.cancel;
-                modal.children[0].innerHTML = speak[0];
                 var search = d.createElement('input'),
                     replace = d.createElement('input'),
                     option = d.createElement('label');
@@ -93,11 +92,12 @@
                     if (e.keyCode === 37 || e.keyCode === 38) return ok.focus(), false;
                     if (e.keyCode === 40) return false;
                 });
-                modal.children[1].appendChild(search);
-                modal.children[1].appendChild(replace);
-                modal.children[1].appendChild(option);
-                modal.children[2].appendChild(ok);
-                modal.children[2].appendChild(cancel);
+                header.innerHTML = speak[0];
+                content.appendChild(search);
+                content.appendChild(replace);
+                content.appendChild(option);
+                footer.appendChild(ok);
+                footer.appendChild(cancel);
                 w.setTimeout(function() {
                     search.focus();
                 }, 10);
