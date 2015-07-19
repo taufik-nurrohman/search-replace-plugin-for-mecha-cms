@@ -3,7 +3,7 @@
 $speak = Config::speak();
 $speak_search_replace = Mecha::A($speak->plugin_search_replace);
 
-Config::merge('DASHBOARD.languages', array(
+Config::merge('DASHBOARD.languages.MTE', array(
     'plugin_search_replace' => $speak_search_replace
 ));
 

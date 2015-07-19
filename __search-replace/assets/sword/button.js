@@ -3,7 +3,7 @@
     var editor = base.composer,
         grip = editor.grip,
         mte = base.languages.MTE,
-        speak = base.languages.plugin_search_replace,
+        speak = mte.plugin_search_replace,
         name = 'search plugin-search-replace';
     editor.button(name, {
         title: speak[0],
